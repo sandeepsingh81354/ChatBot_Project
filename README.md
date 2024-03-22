@@ -34,7 +34,8 @@ This is a customer support chatbot web application built using HTML, CSS, JavaSc
 
 ## Screenshots
 
-![Screenshot 1](screenshots/Screenshot 2024-03-22 200301.png)
+![Screenshot 1](screenshots/Screenshot%202024-03-22%20200301.png)
+
 
 ## Credits
 
