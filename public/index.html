@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Assistant Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #8B93FF;
+        }
+        h1{
+            text-align: center;
+        }
+
+        h5{
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #FFF7FC;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-img {
+            display: block;
+            margin: 0 auto;
+            width: 100px;
+        }
+
+        .message-container {
+            margin-bottom: 20px;
+        }
+        .message-container:last-child {
+            margin-bottom: 0;
+        }
+        .user-message {
+            background-color: #d1ecf1;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+        .bot-message {
+            background-color: #cce5ff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        input[type="text"] {
+            width: calc(100% - 70px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .input-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ChatBot App</h1>
+        <h5>By Sandeep Singh</h5>
+        <div id="message-box"></div>
+        <div class="input-container">
+            <input type="text" id="user-input" placeholder="How can I help you...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function appendMessage(sender, message) {
+            const messageBox = document.getElementById('message-box');
+            const messageContainer = document.createElement('div');
+            messageContainer.classList.add('message-container');
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messageElement.classList.add(`${sender}-message`);
+            messageContainer.appendChild(messageElement);
+            messageBox.appendChild(messageContainer);
+        }
+
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input').value;
+            if (!userInput) return;
+            appendMessage('user', userInput);
+
+            try {
+                const response = await fetch(`/chat?message=${encodeURIComponent(userInput)}`);
+                const data = await response.json();
+                const botMessage = data.botMessage;
+                appendMessage('bot', botMessage);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+
+            document.getElementById('user-input').value = '';
+        }
+    </script>
+</body>
+</html>
