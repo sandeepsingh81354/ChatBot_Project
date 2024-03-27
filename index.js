@@ -5,7 +5,7 @@ const path = require('path');
 
 const OpenAI = require('openai');
 const openai = new OpenAI({
-    apiKey: 'ENTER THE KEY HERE'
+    apiKey: '//ENTER THE KEY HERE//'
 });
 
 const app = express();
